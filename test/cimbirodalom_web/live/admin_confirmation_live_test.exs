@@ -13,7 +13,7 @@ defmodule CimbirodalomWeb.AdminConfirmationLiveTest do
 
   describe "Confirm admin" do
     test "renders confirmation page", %{conn: conn} do
-      {:ok, _lv, html} = live(conn, ~p"/admins/confirm/some-token")
+      {:ok, _lv, html} = live(conn, ~p"/admin/confirm/some-token")
       assert html =~ "Confirm Account"
     end
 
@@ -23,13 +23,13 @@ defmodule CimbirodalomWeb.AdminConfirmationLiveTest do
           Accounts.deliver_admin_confirmation_instructions(admin, url)
         end)
 
-      {:ok, lv, _html} = live(conn, ~p"/admins/confirm/#{token}")
+      {:ok, lv, _html} = live(conn, ~p"/admin/confirm/#{token}")
 
       result =
         lv
         |> form("#confirmation_form")
         |> render_submit()
-        |> follow_redirect(conn, "/")
+        |> follow_redirect(conn, "/admin")
 
       assert {:ok, conn} = result
 
@@ -41,13 +41,13 @@ defmodule CimbirodalomWeb.AdminConfirmationLiveTest do
       assert Repo.all(Accounts.AdminToken) == []
 
       # when not logged in
-      {:ok, lv, _html} = live(conn, ~p"/admins/confirm/#{token}")
+      {:ok, lv, _html} = live(conn, ~p"/admin/confirm/#{token}")
 
       result =
         lv
         |> form("#confirmation_form")
         |> render_submit()
-        |> follow_redirect(conn, "/")
+        |> follow_redirect(conn, "/admin")
 
       assert {:ok, conn} = result
 
@@ -59,26 +59,26 @@ defmodule CimbirodalomWeb.AdminConfirmationLiveTest do
         build_conn()
         |> log_in_admin(admin)
 
-      {:ok, lv, _html} = live(conn, ~p"/admins/confirm/#{token}")
+      {:ok, lv, _html} = live(conn, ~p"/admin/confirm/#{token}")
 
       result =
         lv
         |> form("#confirmation_form")
         |> render_submit()
-        |> follow_redirect(conn, "/")
+        |> follow_redirect(conn, "/admin")
 
       assert {:ok, conn} = result
       refute Phoenix.Flash.get(conn.assigns.flash, :error)
     end
 
     test "does not confirm email with invalid token", %{conn: conn, admin: admin} do
-      {:ok, lv, _html} = live(conn, ~p"/admins/confirm/invalid-token")
+      {:ok, lv, _html} = live(conn, ~p"/admin/confirm/invalid-token")
 
       {:ok, conn} =
         lv
         |> form("#confirmation_form")
         |> render_submit()
-        |> follow_redirect(conn, ~p"/")
+        |> follow_redirect(conn, ~p"/admin")
 
       assert Phoenix.Flash.get(conn.assigns.flash, :error) =~
                "Admin confirmation link is invalid or it has expired"

@@ -49,12 +49,11 @@ defmodule CimbirodalomWeb do
     end
   end
 
-
   def admin_controller do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: CimbirodalomWeb.AppLayouts]
+        layouts: [html: CimbirodalomWeb.AdminLayouts]
 
       import Plug.Conn
       import CimbirodalomWeb.Gettext
@@ -72,7 +71,24 @@ defmodule CimbirodalomWeb do
     end
   end
 
+  def admin_live_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {CimbirodalomWeb.AdminLayouts, :app}
+
+      unquote(html_helpers())
+    end
+  end
+
   def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(html_helpers())
+    end
+  end
+
+  def admin_live_component do
     quote do
       use Phoenix.LiveComponent
 
@@ -93,7 +109,36 @@ defmodule CimbirodalomWeb do
     end
   end
 
+  def admin_html do
+    quote do
+      use Phoenix.Component
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller,
+        only: [get_csrf_token: 0, view_module: 1, view_template: 1]
+
+      # Include general helpers for rendering HTML
+      unquote(admin_html_helpers())
+    end
+  end
+
   defp html_helpers do
+    quote do
+      # HTML escaping functionality
+      import Phoenix.HTML
+      # Core UI components and translation
+      import CimbirodalomWeb.CoreComponents
+      import CimbirodalomWeb.Gettext
+
+      # Shortcut for generating JS commands
+      alias Phoenix.LiveView.JS
+
+      # Routes generation with the ~p sigil
+      unquote(verified_routes())
+    end
+  end
+
+  defp admin_html_helpers do
     quote do
       # HTML escaping functionality
       import Phoenix.HTML

@@ -7,7 +7,16 @@ defmodule CimbirodalomWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, html: {CimbirodalomWeb.Layouts, :root}
+    plug :put_root_layout, html: {CimbirodalomWeb.AppLayouts, :root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
+  pipeline :admin_browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, html: {CimbirodalomWeb.AdminLayouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_admin
@@ -47,39 +56,41 @@ defmodule CimbirodalomWeb.Router do
 
   ## Authentication routes
 
-  scope "/", CimbirodalomWeb do
-    pipe_through [:browser, :redirect_if_admin_is_authenticated]
+  scope "/admin", CimbirodalomWeb do
+    pipe_through [:admin_browser, :redirect_if_admin_is_authenticated]
 
     live_session :redirect_if_admin_is_authenticated,
       on_mount: [{CimbirodalomWeb.AdminAuth, :redirect_if_admin_is_authenticated}] do
-      live "/admins/register", AdminRegistrationLive, :new
-      live "/admins/log_in", AdminLoginLive, :new
-      live "/admins/reset_password", AdminForgotPasswordLive, :new
-      live "/admins/reset_password/:token", AdminResetPasswordLive, :edit
+      live "/register", AdminRegistrationLive, :new
+      live "/log_in", AdminLoginLive, :new
+      live "/reset_password", AdminForgotPasswordLive, :new
+      live "/reset_password/:token", AdminResetPasswordLive, :edit
     end
 
-    post "/admins/log_in", AdminSessionController, :create
+    post "/log_in", AdminSessionController, :create
   end
 
-  scope "/", CimbirodalomWeb do
-    pipe_through [:browser, :require_authenticated_admin]
+  scope "/admin", CimbirodalomWeb do
+    pipe_through [:admin_browser, :require_authenticated_admin]
+
+    get "/", AdminController, :home
 
     live_session :require_authenticated_admin,
       on_mount: [{CimbirodalomWeb.AdminAuth, :ensure_authenticated}] do
-      live "/admins/settings", AdminSettingsLive, :edit
-      live "/admins/settings/confirm_email/:token", AdminSettingsLive, :confirm_email
+      live "/settings", AdminSettingsLive, :edit
+      live "/settings/confirm_email/:token", AdminSettingsLive, :confirm_email
     end
   end
 
-  scope "/", CimbirodalomWeb do
-    pipe_through [:browser]
+  scope "/admin", CimbirodalomWeb do
+    pipe_through [:admin_browser]
 
-    delete "/admins/log_out", AdminSessionController, :delete
+    delete "/log_out", AdminSessionController, :delete
 
     live_session :current_admin,
       on_mount: [{CimbirodalomWeb.AdminAuth, :mount_current_admin}] do
-      live "/admins/confirm/:token", AdminConfirmationLive, :edit
-      live "/admins/confirm", AdminConfirmationInstructionsLive, :new
+      live "/confirm/:token", AdminConfirmationLive, :edit
+      live "/confirm", AdminConfirmationInstructionsLive, :new
     end
   end
 end

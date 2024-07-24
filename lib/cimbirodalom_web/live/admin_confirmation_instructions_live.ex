@@ -1,5 +1,5 @@
 defmodule CimbirodalomWeb.AdminConfirmationInstructionsLive do
-  use CimbirodalomWeb, :live_view
+  use CimbirodalomWeb, :admin_live_view
 
   alias Cimbirodalom.Accounts
 
@@ -21,8 +21,8 @@ defmodule CimbirodalomWeb.AdminConfirmationInstructionsLive do
       </.simple_form>
 
       <p class="text-center mt-4">
-        <.link href={~p"/admins/register"}>Register</.link>
-        | <.link href={~p"/admins/log_in"}>Log in</.link>
+        <.link href={~p"/admin/register"}>Register</.link>
+        | <.link href={~p"/admin/log_in"}>Log in</.link>
       </p>
     </div>
     """
@@ -36,7 +36,7 @@ defmodule CimbirodalomWeb.AdminConfirmationInstructionsLive do
     if admin = Accounts.get_admin_by_email(email) do
       Accounts.deliver_admin_confirmation_instructions(
         admin,
-        &url(~p"/admins/confirm/#{&1}")
+        &url(~p"/admin/confirm/#{&1}")
       )
     end
 
@@ -46,6 +46,6 @@ defmodule CimbirodalomWeb.AdminConfirmationInstructionsLive do
     {:noreply,
      socket
      |> put_flash(:info, info)
-     |> redirect(to: ~p"/")}
+     |> redirect(to: ~p"/admin")}
   end
 end

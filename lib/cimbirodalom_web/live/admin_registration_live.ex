@@ -1,5 +1,5 @@
 defmodule CimbirodalomWeb.AdminRegistrationLive do
-  use CimbirodalomWeb, :live_view
+  use CimbirodalomWeb, :admin_live_view
 
   alias Cimbirodalom.Accounts
   alias Cimbirodalom.Accounts.Admin
@@ -11,7 +11,7 @@ defmodule CimbirodalomWeb.AdminRegistrationLive do
         Register for an account
         <:subtitle>
           Already registered?
-          <.link navigate={~p"/admins/log_in"} class="font-semibold text-brand hover:underline">
+          <.link navigate={~p"/admin/log_in"} class="font-semibold text-brand hover:underline">
             Log in
           </.link>
           to your account now.
@@ -24,7 +24,7 @@ defmodule CimbirodalomWeb.AdminRegistrationLive do
         phx-submit="save"
         phx-change="validate"
         phx-trigger-action={@trigger_submit}
-        action={~p"/admins/log_in?_action=registered"}
+        action={~p"/admin/log_in?_action=registered"}
         method="post"
       >
         <.error :if={@check_errors}>
@@ -59,7 +59,7 @@ defmodule CimbirodalomWeb.AdminRegistrationLive do
         {:ok, _} =
           Accounts.deliver_admin_confirmation_instructions(
             admin,
-            &url(~p"/admins/confirm/#{&1}")
+            &url(~p"/admin/confirm/#{&1}")
           )
 
         changeset = Accounts.change_admin_registration(admin)

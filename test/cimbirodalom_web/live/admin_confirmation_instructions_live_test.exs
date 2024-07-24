@@ -13,18 +13,18 @@ defmodule CimbirodalomWeb.AdminConfirmationInstructionsLiveTest do
 
   describe "Resend confirmation" do
     test "renders the resend confirmation page", %{conn: conn} do
-      {:ok, _lv, html} = live(conn, ~p"/admins/confirm")
+      {:ok, _lv, html} = live(conn, ~p"/admin/confirm")
       assert html =~ "Resend confirmation instructions"
     end
 
     test "sends a new confirmation token", %{conn: conn, admin: admin} do
-      {:ok, lv, _html} = live(conn, ~p"/admins/confirm")
+      {:ok, lv, _html} = live(conn, ~p"/admin/confirm")
 
       {:ok, conn} =
         lv
         |> form("#resend_confirmation_form", admin: %{email: admin.email})
         |> render_submit()
-        |> follow_redirect(conn, ~p"/")
+        |> follow_redirect(conn, ~p"/admin")
 
       assert Phoenix.Flash.get(conn.assigns.flash, :info) =~
                "If your email is in our system"
@@ -35,13 +35,13 @@ defmodule CimbirodalomWeb.AdminConfirmationInstructionsLiveTest do
     test "does not send confirmation token if admin is confirmed", %{conn: conn, admin: admin} do
       Repo.update!(Accounts.Admin.confirm_changeset(admin))
 
-      {:ok, lv, _html} = live(conn, ~p"/admins/confirm")
+      {:ok, lv, _html} = live(conn, ~p"/admin/confirm")
 
       {:ok, conn} =
         lv
         |> form("#resend_confirmation_form", admin: %{email: admin.email})
         |> render_submit()
-        |> follow_redirect(conn, ~p"/")
+        |> follow_redirect(conn, ~p"/admin")
 
       assert Phoenix.Flash.get(conn.assigns.flash, :info) =~
                "If your email is in our system"
@@ -50,13 +50,13 @@ defmodule CimbirodalomWeb.AdminConfirmationInstructionsLiveTest do
     end
 
     test "does not send confirmation token if email is invalid", %{conn: conn} do
-      {:ok, lv, _html} = live(conn, ~p"/admins/confirm")
+      {:ok, lv, _html} = live(conn, ~p"/admin/confirm")
 
       {:ok, conn} =
         lv
         |> form("#resend_confirmation_form", admin: %{email: "unknown@example.com"})
         |> render_submit()
-        |> follow_redirect(conn, ~p"/")
+        |> follow_redirect(conn, ~p"/admin")
 
       assert Phoenix.Flash.get(conn.assigns.flash, :info) =~
                "If your email is in our system"

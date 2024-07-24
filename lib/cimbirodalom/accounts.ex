@@ -162,7 +162,7 @@ defmodule Cimbirodalom.Accounts do
 
   ## Examples
 
-      iex> deliver_admin_update_email_instructions(admin, current_email, &url(~p"/admins/settings/confirm_email/#{&1}"))
+      iex> deliver_admin_update_email_instructions(admin, current_email, &url(~p"/admin/settings/confirm_email/#{&1}"))
       {:ok, %{to: ..., body: ...}}
 
   """
@@ -249,10 +249,10 @@ defmodule Cimbirodalom.Accounts do
 
   ## Examples
 
-      iex> deliver_admin_confirmation_instructions(admin, &url(~p"/admins/confirm/#{&1}"))
+      iex> deliver_admin_confirmation_instructions(admin, &url(~p"/admin/confirm/#{&1}"))
       {:ok, %{to: ..., body: ...}}
 
-      iex> deliver_admin_confirmation_instructions(confirmed_admin, &url(~p"/admins/confirm/#{&1}"))
+      iex> deliver_admin_confirmation_instructions(confirmed_admin, &url(~p"/admin/confirm/#{&1}"))
       {:error, :already_confirmed}
 
   """
@@ -296,7 +296,7 @@ defmodule Cimbirodalom.Accounts do
 
   ## Examples
 
-      iex> deliver_admin_reset_password_instructions(admin, &url(~p"/admins/reset_password/#{&1}"))
+      iex> deliver_admin_reset_password_instructions(admin, &url(~p"/admin/reset_password/#{&1}"))
       {:ok, %{to: ..., body: ...}}
 
   """

@@ -22,7 +22,7 @@ defmodule CimbirodalomWeb.AdminAuthTest do
       conn = AdminAuth.log_in_admin(conn, admin)
       assert token = get_session(conn, :admin_token)
       assert get_session(conn, :live_socket_id) == "admins_sessions:#{Base.url_encode64(token)}"
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == ~p"/admin"
       assert Accounts.get_admin_by_session_token(token)
     end
 
@@ -60,7 +60,7 @@ defmodule CimbirodalomWeb.AdminAuthTest do
       refute get_session(conn, :admin_token)
       refute conn.cookies[@remember_me_cookie]
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == ~p"/admin"
       refute Accounts.get_admin_by_session_token(admin_token)
     end
 
@@ -79,7 +79,7 @@ defmodule CimbirodalomWeb.AdminAuthTest do
       conn = conn |> fetch_cookies() |> AdminAuth.log_out_admin()
       refute get_session(conn, :admin_token)
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == ~p"/admin"
     end
   end
 
@@ -216,7 +216,7 @@ defmodule CimbirodalomWeb.AdminAuthTest do
     test "redirects if admin is authenticated", %{conn: conn, admin: admin} do
       conn = conn |> assign(:current_admin, admin) |> AdminAuth.redirect_if_admin_is_authenticated([])
       assert conn.halted
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == ~p"/admin"
     end
 
     test "does not redirect if admin is not authenticated", %{conn: conn} do
@@ -231,7 +231,7 @@ defmodule CimbirodalomWeb.AdminAuthTest do
       conn = conn |> fetch_flash() |> AdminAuth.require_authenticated_admin([])
       assert conn.halted
 
-      assert redirected_to(conn) == ~p"/admins/log_in"
+      assert redirected_to(conn) == ~p"/admin/log_in"
 
       assert Phoenix.Flash.get(conn.assigns.flash, :error) ==
                "You must log in to access this page."

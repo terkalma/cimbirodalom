@@ -76,9 +76,10 @@ defmodule Cimbirodalom.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind cimbirodalom", "esbuild cimbirodalom"],
+      "assets.build": ["tailwind cimbirodalom", "tailwind cimbirodalom_admin", "esbuild cimbirodalom"],
       "assets.deploy": [
         "tailwind cimbirodalom --minify",
+        "tailwind cimbirodalom_admin --minify",
         "esbuild cimbirodalom --minify",
         "phx.digest"
       ]

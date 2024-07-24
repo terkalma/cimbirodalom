@@ -26,7 +26,8 @@ config :cimbirodalom, CimbirodalomWeb.Endpoint,
   secret_key_base: "fwQHc3ZXu72q1OBTe55piF0xO+44/0qybH3PDdFa65G/Uuzo3qKpewOVvrHUwiJQ",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:cimbirodalom, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:cimbirodalom, ~w(--watch)]}
+    tailwind: {Tailwind, :install_and_run, [:cimbirodalom, ~w(--watch)]},
+    tailwind_admin: {Tailwind, :install_and_run, [:cimbirodalom_admin, ~w(--watch)]}
   ]
 
 # ## SSL Support

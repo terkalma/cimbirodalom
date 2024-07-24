@@ -83,7 +83,7 @@ defmodule CimbirodalomWeb.AdminAuth do
     conn
     |> renew_session()
     |> delete_resp_cookie(@remember_me_cookie)
-    |> redirect(to: ~p"/")
+    |> redirect(to: ~p"/admin")
   end
 
   @doc """
@@ -158,7 +158,7 @@ defmodule CimbirodalomWeb.AdminAuth do
       socket =
         socket
         |> Phoenix.LiveView.put_flash(:error, "You must log in to access this page.")
-        |> Phoenix.LiveView.redirect(to: ~p"/admins/log_in")
+        |> Phoenix.LiveView.redirect(to: ~p"/admin/log_in")
 
       {:halt, socket}
     end
@@ -208,7 +208,7 @@ defmodule CimbirodalomWeb.AdminAuth do
       conn
       |> put_flash(:error, "You must log in to access this page.")
       |> maybe_store_return_to()
-      |> redirect(to: ~p"/admins/log_in")
+      |> redirect(to: ~p"/admin/log_in")
       |> halt()
     end
   end
@@ -225,5 +225,5 @@ defmodule CimbirodalomWeb.AdminAuth do
 
   defp maybe_store_return_to(conn), do: conn
 
-  defp signed_in_path(_conn), do: ~p"/"
+  defp signed_in_path(_conn), do: ~p"/admin"
 end

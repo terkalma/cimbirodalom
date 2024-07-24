@@ -1,5 +1,5 @@
 defmodule CimbirodalomWeb.AdminConfirmationLive do
-  use CimbirodalomWeb, :live_view
+  use CimbirodalomWeb, :admin_live_view
 
   alias Cimbirodalom.Accounts
 
@@ -16,8 +16,8 @@ defmodule CimbirodalomWeb.AdminConfirmationLive do
       </.simple_form>
 
       <p class="text-center mt-4">
-        <.link href={~p"/admins/register"}>Register</.link>
-        | <.link href={~p"/admins/log_in"}>Log in</.link>
+        <.link href={~p"/admin/register"}>Register</.link>
+        | <.link href={~p"/admin/log_in"}>Log in</.link>
       </p>
     </div>
     """
@@ -36,7 +36,7 @@ defmodule CimbirodalomWeb.AdminConfirmationLive do
         {:noreply,
          socket
          |> put_flash(:info, "Admin confirmed successfully.")
-         |> redirect(to: ~p"/")}
+         |> redirect(to: ~p"/admin")}
 
       :error ->
         # If there is a current admin and the account was already confirmed,
@@ -45,13 +45,13 @@ defmodule CimbirodalomWeb.AdminConfirmationLive do
         # a warning message.
         case socket.assigns do
           %{current_admin: %{confirmed_at: confirmed_at}} when not is_nil(confirmed_at) ->
-            {:noreply, redirect(socket, to: ~p"/")}
+            {:noreply, redirect(socket, to: ~p"/admin")}
 
           %{} ->
             {:noreply,
              socket
              |> put_flash(:error, "Admin confirmation link is invalid or it has expired.")
-             |> redirect(to: ~p"/")}
+             |> redirect(to: ~p"/admin")}
         end
     end
   end
