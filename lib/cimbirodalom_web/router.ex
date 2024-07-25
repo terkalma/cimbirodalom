@@ -20,15 +20,17 @@ defmodule CimbirodalomWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_admin
+    plug CimbirodalomWeb.Plugs.AdminSettings
   end
 
-  pipeline :api do
+  pipeline :admin_api do
+    plug :fetch_session
+    plug :fetch_current_admin
     plug :accepts, ["json"]
   end
 
   scope "/", CimbirodalomWeb do
     pipe_through :browser
-
     get "/", PageController, :home
   end
 
@@ -68,6 +70,12 @@ defmodule CimbirodalomWeb.Router do
     end
 
     post "/log_in", AdminSessionController, :create
+  end
+
+  scope "/admin", CimbirodalomWeb do
+    pipe_through [:admin_api]
+
+    post "/settings", AdminController, :settings
   end
 
   scope "/admin", CimbirodalomWeb do

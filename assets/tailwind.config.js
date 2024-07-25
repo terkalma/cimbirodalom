@@ -6,12 +6,16 @@ const fs = require("fs")
 const path = require("path")
 
 module.exports = {
+  darkMode: 'class',
   content: [
     "./js/**/*.js",
     "../lib/cimbirodalom_web.ex",
     "../lib/cimbirodalom_web/**/*.*ex"
   ],
   theme: {
+    fontFamily: {
+      sans: ['"Open Sans"', "Lato", "ui-sans-serif", "system-ui"],
+    },
     extend: {
       colors: {
         brand: "#FD4F00",

@@ -11,7 +11,7 @@ defmodule CimbirodalomWeb.AdminSettingsLive do
     </.header>
 
     <div class="space-y-12 divide-y">
-      <div>
+      <div class="mt-12 bg-white dark:bg-slate-800 p-10 rounded-lg shadow-md dark:border-none">
         <.simple_form
           for={@email_form}
           id="email_form"
@@ -33,7 +33,7 @@ defmodule CimbirodalomWeb.AdminSettingsLive do
           </:actions>
         </.simple_form>
       </div>
-      <div>
+      <div class="bg-white dark:bg-slate-800 p-10 rounded-lg shadow-md dark:border-none">
         <.simple_form
           for={@password_form}
           id="password_form"

@@ -1,29 +1,60 @@
-<header class="px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
-    <div class="flex items-center gap-4">
-      <a href="/">
-        <img src={~p"/images/logo.svg"} width="36" />
-      </a>
-      <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
-        v<%= Application.spec(:phoenix, :vsn) %>
-      </p>
-    </div>
-    <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
-      <a href="https://twitter.com/elixirphoenix" class="hover:text-zinc-700">
-        @elixirphoenix
-      </a>
-      <a href="https://github.com/phoenixframework/phoenix" class="hover:text-zinc-700">
-        GitHub
-      </a>
-      <a
-        href="https://hexdocs.pm/phoenix/overview.html"
-        class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80"
-      >
-        Get Started <span aria-hidden="true">&rarr;</span>
-      </a>
+<header class="sticky top-0 z-99 flex w-full bg-white dark:bg-slate-800 dark:text-blue-400 dark:drop-shadow-none">
+  <div class="flex flex-grow items-center justify-between py-2 px-4 shadow-md md:px-6 2xl:px-11">
+    <button
+      class="border-2 border-white text-slate-600 dark:text-blue-500 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 rounded-lg hover:text-blue-500"
+      type="button"
+      id="main-navigation-drawer"
+      phx-click="[[&quot;dispatch&quot;,{&quot;event&quot;:&quot;phx:toggle-sidebar&quot;}]]"
+    >
+      <span class="hero-bars-3 w-10 h-10"></span>
+    </button>
+    <div class="flex items-center gap-2 sm:gap-4 lg:hidden"></div>
+    <div class="hidden sm:block min-w-[50%]"></div>
+    <div class="flex items-center gap-3 2xsm:gap-7">
+      <ul class="hidden md:flex items-center gap-6 2xsm:gap-4">
+        <li>
+          <!-- Dark Mode Toggler -->
+          <label
+            class="relative m-0 block h-8 w-14 rounded-full bg-sky-200 dark:bg-blue-300 cursor-pointer shadow-inner"
+            phx-click={JS.dispatch("phx:toggle-dark-mode")}
+          >
+            <span
+              id="dark-mode-toggle"
+              class={[
+                "absolute top-1/2 left-1 flex h-6 w-6 -translate-y-1/2",
+                "translate-x-0 dark:translate-x-full",
+                "items-center justify-center rounded-full duration-75 ease-linear bg-yellow-200 dark:bg-blue-500"
+              ]}
+            >
+              <.icon name="hero-sun-solid" class="bg-amber-400 w-full h-full dark:hidden" />
+              <.icon
+                name="hero-moon-solid"
+                class="bg-blue-800 w-full h-full hidden dark:inline-block"
+              />
+            </span>
+          </label>
+          <!-- Dark Mode Toggler -->
+        </li>
+        <%= if @current_admin do %>
+          <li class="text-sm">
+            <%= @current_admin.email %>
+          </li>
+          <li>
+            <.link href={~p"/admin/settings"} class="leading-6 hover:text-blue-500">
+              <.icon name="hero-cog-6-tooth" />
+            </.link>
+          </li>
+          <li>
+            <.link href={~p"/admin/log_out"} method="delete" class="leading-6 hover:text-blue-500">
+              <.icon name="hero-arrow-right-start-on-rectangle" />
+            </.link>
+          </li>        
+        <% end %>
+      </ul>
     </div>
   </div>
 </header>
+
 <main class="px-4 py-20 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-2xl">
     <.flash_group flash={@flash} />

@@ -76,7 +76,7 @@ defmodule CimbirodalomWeb do
       use Phoenix.LiveView,
         layout: {CimbirodalomWeb.AdminLayouts, :app}
 
-      unquote(html_helpers())
+      unquote(admin_html_helpers())
     end
   end
 
@@ -92,7 +92,7 @@ defmodule CimbirodalomWeb do
     quote do
       use Phoenix.LiveComponent
 
-      unquote(html_helpers())
+      unquote(admin_html_helpers())
     end
   end
 
@@ -143,7 +143,7 @@ defmodule CimbirodalomWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import CimbirodalomWeb.CoreComponents
+      import CimbirodalomWeb.AdminComponents
       import CimbirodalomWeb.Gettext
 
       # Shortcut for generating JS commands

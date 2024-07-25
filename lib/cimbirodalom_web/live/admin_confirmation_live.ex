@@ -5,7 +5,7 @@ defmodule CimbirodalomWeb.AdminConfirmationLive do
 
   def render(%{live_action: :edit} = assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="mx-auto max-w-md bg-white dark:bg-slate-800 p-10 rounded-lg shadow-md">
       <.header class="text-center">Confirm Account</.header>
 
       <.simple_form for={@form} id="confirmation_form" phx-submit="confirm_account">

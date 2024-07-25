@@ -6,12 +6,12 @@ defmodule CimbirodalomWeb.AdminRegistrationLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="mx-auto max-w-md bg-white dark:bg-slate-800 p-10 rounded-lg shadow-md">
       <.header class="text-center">
         Register for an account
         <:subtitle>
           Already registered?
-          <.link navigate={~p"/admin/log_in"} class="font-semibold text-brand hover:underline">
+          <.link navigate={~p"/admin/log_in"} class="font-semibold text-blue-500 hover:underline">
             Log in
           </.link>
           to your account now.

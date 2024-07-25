@@ -3,12 +3,12 @@ defmodule CimbirodalomWeb.AdminLoginLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="mx-auto max-w-md bg-white dark:bg-slate-800 p-10 rounded-lg shadow-md">
       <.header class="text-center">
         Log in to account
         <:subtitle>
           Don't have an account?
-          <.link navigate={~p"/admin/register"} class="font-semibold text-brand hover:underline">
+          <.link navigate={~p"/admin/register"} class="font-semibold text-blue-500 hover:underline">
             Sign up
           </.link>
           for an account now.
@@ -21,7 +21,7 @@ defmodule CimbirodalomWeb.AdminLoginLive do
 
         <:actions>
           <.input field={@form[:remember_me]} type="checkbox" label="Keep me logged in" />
-          <.link href={~p"/admin/reset_password"} class="text-sm font-semibold">
+          <.link href={~p"/admin/reset_password"} class="text-sm font-semibold text-blue-500">
             Forgot your password?
           </.link>
         </:actions>

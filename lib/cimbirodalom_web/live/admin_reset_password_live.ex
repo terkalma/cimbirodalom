@@ -5,7 +5,7 @@ defmodule CimbirodalomWeb.AdminResetPasswordLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="mx-auto max-w-md bg-white dark:bg-slate-800 p-10 rounded-lg shadow-md">
       <.header class="text-center">Reset Password</.header>
 
       <.simple_form
@@ -79,7 +79,7 @@ defmodule CimbirodalomWeb.AdminResetPasswordLive do
     else
       socket
       |> put_flash(:error, "Reset password link is invalid or it has expired.")
-      |> redirect(to: ~p"/admin")
+      |> redirect(to: ~p"/admin/reset_password")
     end
   end
 

@@ -6,4 +6,12 @@ defmodule CimbirodalomWeb.AdminController do
     # so skip the default app layout.
     render(conn, :home)
   end
+
+  def settings(conn, %{"dark_mode" => dark_mode}) do
+    if conn.assigns[:current_admin] do
+      json(conn |> put_session(:dark_mode, dark_mode), %{status: :ok})
+    else
+      json(conn, %{status: :nok})
+    end
+  end
 end

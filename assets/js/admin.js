@@ -42,3 +42,27 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+
+const updateDarkMode = (mode) => {
+    fetch("/admin/settings", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": csrfToken
+        },
+        body: JSON.stringify({dark_mode: mode})
+    })
+}
+
+
+window.addEventListener("phx:toggle-dark-mode", () => {
+    if (document.documentElement.classList.contains("dark")) {
+        updateDarkMode(false)
+        document.documentElement.classList.remove("dark")
+        localStorage.removeItem("phx:dark-mode")
+    } else {
+        updateDarkMode(true)
+        document.documentElement.classList.add("dark")
+        localStorage.setItem("phx:dark-mode", "dark")
+    }
+})

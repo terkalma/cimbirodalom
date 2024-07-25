@@ -5,7 +5,7 @@ defmodule CimbirodalomWeb.AdminForgotPasswordLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="mx-auto max-w-md bg-white dark:bg-slate-800 p-10 rounded-lg shadow-md">
       <.header class="text-center">
         Forgot your password?
         <:subtitle>We'll send a password reset link to your inbox</:subtitle>
@@ -45,6 +45,6 @@ defmodule CimbirodalomWeb.AdminForgotPasswordLive do
     {:noreply,
      socket
      |> put_flash(:info, info)
-     |> redirect(to: ~p"/admin")}
+     |> redirect(to: ~p"/admin/reset_password")}
   end
 end
