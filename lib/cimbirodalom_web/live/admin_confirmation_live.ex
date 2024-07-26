@@ -51,7 +51,7 @@ defmodule CimbirodalomWeb.AdminConfirmationLive do
             {:noreply,
              socket
              |> put_flash(:error, "Admin confirmation link is invalid or it has expired.")
-             |> redirect(to: ~p"/admin")}
+             |> redirect(to: ~p"/admin/log_in")}
         end
     end
   end

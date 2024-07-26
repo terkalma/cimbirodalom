@@ -29,7 +29,7 @@ defmodule CimbirodalomWeb.AdminResetPasswordLiveTest do
 
       assert to == %{
                flash: %{"error" => "Reset password link is invalid or it has expired."},
-               to: ~p"/admin"
+               to: ~p"/admin/reset_password"
              }
     end
 

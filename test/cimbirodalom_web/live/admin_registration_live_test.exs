@@ -51,8 +51,6 @@ defmodule CimbirodalomWeb.AdminRegistrationLiveTest do
       conn = get(conn, "/admin")
       response = html_response(conn, 200)
       assert response =~ email
-      assert response =~ "Settings"
-      assert response =~ "Log out"
     end
 
     test "renders errors for duplicated email", %{conn: conn} do

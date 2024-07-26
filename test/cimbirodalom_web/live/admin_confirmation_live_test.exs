@@ -47,7 +47,7 @@ defmodule CimbirodalomWeb.AdminConfirmationLiveTest do
         lv
         |> form("#confirmation_form")
         |> render_submit()
-        |> follow_redirect(conn, "/admin")
+        |> follow_redirect(conn, "/admin/log_in")
 
       assert {:ok, conn} = result
 
@@ -78,7 +78,7 @@ defmodule CimbirodalomWeb.AdminConfirmationLiveTest do
         lv
         |> form("#confirmation_form")
         |> render_submit()
-        |> follow_redirect(conn, ~p"/admin")
+        |> follow_redirect(conn, ~p"/admin/log_in")
 
       assert Phoenix.Flash.get(conn.assigns.flash, :error) =~
                "Admin confirmation link is invalid or it has expired"

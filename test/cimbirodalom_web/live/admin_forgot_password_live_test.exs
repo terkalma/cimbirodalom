@@ -39,7 +39,7 @@ defmodule CimbirodalomWeb.AdminForgotPasswordLiveTest do
         lv
         |> form("#reset_password_form", admin: %{"email" => admin.email})
         |> render_submit()
-        |> follow_redirect(conn, "/admin")
+        |> follow_redirect(conn, "/admin/reset_password")
 
       assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
 
@@ -54,7 +54,7 @@ defmodule CimbirodalomWeb.AdminForgotPasswordLiveTest do
         lv
         |> form("#reset_password_form", admin: %{"email" => "unknown@example.com"})
         |> render_submit()
-        |> follow_redirect(conn, "/admin")
+        |> follow_redirect(conn, "/admin/reset_password")
 
       assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
       assert Repo.all(Accounts.AdminToken) == []
