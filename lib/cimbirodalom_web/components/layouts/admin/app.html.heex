@@ -1,15 +1,14 @@
-<header class="sticky top-0 z-99 flex w-full bg-white dark:bg-slate-800 dark:text-blue-400 dark:drop-shadow-none">
+<header class="sticky top-0 z-10 flex w-full bg-white dark:bg-slate-800 dark:text-blue-400 dark:drop-shadow-none">
   <div class="flex flex-grow items-center justify-between py-2 px-4 shadow-md md:px-6 2xl:px-11">
     <button
       class="border-2 border-white text-slate-600 dark:text-blue-500 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 rounded-lg hover:text-blue-500"
       type="button"
       id="main-navigation-drawer"
-      phx-click="[[&quot;dispatch&quot;,{&quot;event&quot;:&quot;phx:toggle-sidebar&quot;}]]"
+      data-drawer-target="drawer-navigation"
+      data-drawer-show="drawer-navigation"      
     >
       <span class="hero-bars-3 w-10 h-10"></span>
-    </button>
-    <div class="flex items-center gap-2 sm:gap-4 lg:hidden"></div>
-    <div class="hidden sm:block min-w-[50%]"></div>
+    </button>    
     <div class="flex items-center gap-3 2xsm:gap-7">
       <ul class="hidden md:flex items-center gap-6 2xsm:gap-4">
         <li>

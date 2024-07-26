@@ -1,0 +1,11 @@
+{
+  "name": "cimbirodalom",
+  "version": "1.0.0",
+  "description": "Asssets for cimbi",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "flowbite": "^2.4.1"
+  }
+}

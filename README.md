@@ -16,3 +16,18 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+
+## Docs
+
+Project contains an admin and website.
+
+* They use different layouts
+* Different html_helpers
+* Different assets are compiled for the 2
+  * `app.css`  / `app.js` for the website
+  * `admin.css` / `admin.js` for the admin
+
+
+* Both sites use `tailwind` and they share the same config.
+* [Flowbite](https://flowbite.com/docs/getting-started/phoenix/) is used for the admin drawer + article carousels (installation details linked).

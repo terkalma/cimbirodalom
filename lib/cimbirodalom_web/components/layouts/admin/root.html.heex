@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class={
-  [
+<html
+  lang="en"
+  class={[
     assigns[:dark_mode] && "dark",
     "[scrollbar-gutter:stable]"
-  ]
-}>
+  ]}
+>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,9 +17,38 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/admin.js"}>
     </script>
   </head>
-  <body class={[    
+  <body class={[
     "bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-white"
-  ]}>    
+  ]}>
+    <div
+      tabindex="-1"
+      class={
+        [
+          "absolute left-0 top-0 h-screen",
+          "overflow-y-auto transition-transform -translate-x-full ease-linear duration-300",
+          "w-72 z-40",
+          "bg-slate-800 text-blue-300",
+          "flex flex-col"
+        ]
+      }
+      id="drawer-navigation"
+      aria-modal="true"
+      role="dialog"
+    >
+      <!-- SIDEBAR HEADER -->
+      <div class="flex items-center justify-between">
+        <.link navigate={~p"/admin"} class="text-2xl ml-[10%] mt-5 text-white">
+          Cimbora Admin
+        </.link>        
+      </div>
+      <!-- SIDEBAR HEADER -->
+      <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+        <nav class="">
+          <ul class="">            
+          </ul>
+        </nav>
+      </div>
+    </div>
     <%= @inner_content %>
   </body>
 </html>
