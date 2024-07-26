@@ -38,7 +38,13 @@ defmodule CimbirodalomWeb.Admin.ArticleLive.Index do
   end
 
   @impl true
+  def handle_info({CimbirodalomWeb.Admin.ArticleLive.FormComponent, {:created, article}}, socket) do
+    {:noreply, push_navigate(socket, to: ~p"/admin/articles/#{article.id}/edit")}
+  end
+
+  @impl true
   def handle_event("delete", %{"id" => id}, socket) do
+    # TODO should be using the archive function, but that requires a partial index
     article = Articles.get_article!(id)
     {:ok, _} = Articles.delete_article(article)
 

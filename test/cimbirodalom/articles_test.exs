@@ -21,11 +21,11 @@ defmodule Cimbirodalom.ArticlesTest do
     end
 
     test "create_article/1 with valid data creates a article" do
-      valid_attrs = %{title: "some title", slug: "some slug", subtitle: "some subtitle"}
+      valid_attrs = %{title: "some title", subtitle: "some subtitle"}
 
       assert {:ok, %Article{} = article} = Articles.create_article(valid_attrs)
       assert article.title == "some title"
-      assert article.slug == "some slug"
+      assert article.slug == "some-title"
       assert article.subtitle == "some subtitle"
     end
 
@@ -35,11 +35,11 @@ defmodule Cimbirodalom.ArticlesTest do
 
     test "update_article/2 with valid data updates the article" do
       article = article_fixture()
-      update_attrs = %{title: "some updated title", slug: "some updated slug", subtitle: "some updated subtitle"}
+      update_attrs = %{title: "some updated title", subtitle: "some updated subtitle"}
 
       assert {:ok, %Article{} = article} = Articles.update_article(article, update_attrs)
       assert article.title == "some updated title"
-      assert article.slug == "some updated slug"
+      assert article.slug == "some-updated-title"
       assert article.subtitle == "some updated subtitle"
     end
 

@@ -7,7 +7,7 @@ defmodule Cimbirodalom.ArticlesFixtures do
   @doc """
   Generate a unique article slug.
   """
-  def unique_article_slug, do: "some slug#{System.unique_integer([:positive])}"
+  def unique_article_tile, do: "some title#{System.unique_integer([:positive])}"
 
   @doc """
   Generate a article.
@@ -16,9 +16,8 @@ defmodule Cimbirodalom.ArticlesFixtures do
     {:ok, article} =
       attrs
       |> Enum.into(%{
-        slug: unique_article_slug(),
         subtitle: "some subtitle",
-        title: "some title"
+        title: unique_article_tile()
       })
       |> Cimbirodalom.Articles.create_article()
 

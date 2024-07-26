@@ -9,7 +9,6 @@ defmodule CimbirodalomWeb.Admin.ArticleLive.FormComponent do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage article records in your database.</:subtitle>
       </.header>
 
       <.simple_form
@@ -20,10 +19,9 @@ defmodule CimbirodalomWeb.Admin.ArticleLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:slug]} type="text" label="Slug" />
         <.input field={@form[:subtitle]} type="text" label="Subtitle" />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Article</.button>
+          <.button phx-disable-with="Saving...">Start Editing -></.button>
         </:actions>
       </.simple_form>
     </div>

@@ -7,6 +7,7 @@ defmodule Cimbirodalom.Articles.Article do
     field :slug, :string
     field :subtitle, :string
     field :created_by, :id
+    field :status, Ecto.Enum, values: [:draft, :published, :archived], default: :draft
 
     timestamps(type: :utc_datetime)
   end
@@ -14,8 +15,18 @@ defmodule Cimbirodalom.Articles.Article do
   @doc false
   def changeset(article, attrs) do
     article
-    |> cast(attrs, [:title, :slug, :subtitle])
-    |> validate_required([:title, :slug, :subtitle])
-    |> unique_constraint(:slug)
+    |> cast(attrs, [:title, :subtitle, :status])
+    |> validate_subset(:status, [:draft, :published, :archived])
+    |> validate_required([:title, :subtitle])
+    |> build_slug()
+    |> unique_constraint([:title, :status])
+  end
+
+  defp build_slug(changeset) do
+    if title = get_field(changeset, :title) do
+      put_change(changeset, :slug, Slug.slugify(title))
+    else
+      changeset
+    end
   end
 end

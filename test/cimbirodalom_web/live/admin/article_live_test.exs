@@ -5,9 +5,9 @@ defmodule CimbirodalomWeb.Admin.ArticleLiveTest do
   import Cimbirodalom.ArticlesFixtures
   import Cimbirodalom.AccountsFixtures
 
-  @create_attrs %{title: "some title", slug: "some slug", subtitle: "some subtitle"}
-  @update_attrs %{title: "some updated title", slug: "some updated slug", subtitle: "some updated subtitle"}
-  @invalid_attrs %{title: nil, slug: nil, subtitle: nil}
+  @create_attrs %{title: "some title", subtitle: "some subtitle"}
+  @update_attrs %{title: "some updated title", subtitle: "some updated subtitle"}
+  @invalid_attrs %{title: nil, subtitle: nil}
 
   defp create_article(_) do
     article = article_fixture()
