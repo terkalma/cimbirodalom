@@ -2,6 +2,7 @@ defmodule CimbirodalomWeb.Router do
   use CimbirodalomWeb, :router
 
   import CimbirodalomWeb.AdminAuth
+  alias Admin.ArticleLive
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -87,6 +88,12 @@ defmodule CimbirodalomWeb.Router do
       on_mount: [{CimbirodalomWeb.AdminAuth, :ensure_authenticated}] do
       live "/settings", AdminSettingsLive, :edit
       live "/settings/confirm_email/:token", AdminSettingsLive, :confirm_email
+      live "/articles", ArticleLive.Index, :index
+      live "/articles/new", ArticleLive.Index, :new
+      live "/articles/:id/edit", ArticleLive.Index, :edit
+
+      live "/articles/:id", ArticleLive.Show, :show
+      live "/articles/:id/show/edit", ArticleLive.Show, :edit
     end
   end
 

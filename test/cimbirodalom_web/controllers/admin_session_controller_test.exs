@@ -18,7 +18,8 @@ defmodule CimbirodalomWeb.AdminessionControllerTest do
       assert redirected_to(conn) == ~p"/admin"
 
       # Now do a logged in request and assert on the menu
-      conn = get(conn, ~p"/admin")
+      conn = get(conn, ~p"/admin/articles")
+
       response = html_response(conn, 200)
       assert response =~ admin.email
       assert response =~ ~p"/admin/settings"

@@ -48,7 +48,7 @@ defmodule CimbirodalomWeb.AdminRegistrationLiveTest do
       assert redirected_to(conn) == ~p"/admin"
 
       # Now do a logged in request and assert on the menu
-      conn = get(conn, "/admin")
+      conn = get(conn, "/admin/articles")
       response = html_response(conn, 200)
       assert response =~ email
     end

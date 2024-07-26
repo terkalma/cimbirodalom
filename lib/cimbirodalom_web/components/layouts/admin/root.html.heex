@@ -43,8 +43,18 @@
       </div>
       <!-- SIDEBAR HEADER -->
       <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
-        <nav class="">
-          <ul class="">            
+        <nav class="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
+          <ul class="flex flex-col gap-1.5">            
+            <li>
+              <.link
+                navigate={~p"/admin/articles"}
+                class="flex items-center gap-4 p-4 hover:bg-slate-700"
+                data-drawer-hide="drawer-navigation"
+              >
+                <.icon name="hero-newspaper" class="w-6 h-6" />
+                Articles
+              </.link>
+            </li>
           </ul>
         </nav>
       </div>

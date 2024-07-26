@@ -4,7 +4,7 @@ defmodule CimbirodalomWeb.AdminController do
   def home(conn, _params) do
     # The home page is often custom made,
     # so skip the default app layout.
-    render(conn, :home)
+    redirect(conn, to: ~p"/admin/articles")
   end
 
   def settings(conn, %{"dark_mode" => dark_mode}) do
