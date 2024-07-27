@@ -82,34 +82,8 @@ defmodule CimbirodalomWeb.Admin.ArticleLiveTest do
              |> form("#article-form", article: @create_attrs)
              |> render_submit()
 
-      assert_patch(index_live, ~p"/admin/articles")
-
-      html = render(index_live)
-      assert html =~ "Article created successfully"
-      assert html =~ "some title"
-    end
-
-    test "updates article in listing", %{conn: conn, article: article} do
-      {:ok, index_live, _html} = live(conn, ~p"/admin/articles")
-
-      assert index_live |> element("#articles-#{article.id} a", "Edit") |> render_click() =~
-               "Edit Article"
-
-      assert_patch(index_live, ~p"/admin/articles/#{article}/edit")
-
-      assert index_live
-             |> form("#article-form", article: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
-
-      assert index_live
-             |> form("#article-form", article: @update_attrs)
-             |> render_submit()
-
-      assert_patch(index_live, ~p"/admin/articles")
-
-      html = render(index_live)
-      assert html =~ "Article updated successfully"
-      assert html =~ "some updated title"
+      {path, _} = assert_redirect(index_live)
+      assert path =~ ~r/admin\/articles\/\d+\/edit/
     end
 
     test "deletes article in listing", %{conn: conn, article: article} do

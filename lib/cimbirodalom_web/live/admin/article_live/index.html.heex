@@ -19,7 +19,7 @@
     <div class="sr-only">
       <.link navigate={~p"/admin/articles/#{article}"}>Show</.link>
     </div>
-    <.link patch={~p"/admin/articles/#{article}/edit"}>Edit</.link>
+    <.link navigate={~p"/admin/articles/#{article}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, article}}>
     <.link
@@ -31,10 +31,10 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="article-modal" show on_cancel={JS.patch(~p"/admin/articles")}>
+<.modal :if={@live_action == :new} id="article-modal" show on_cancel={JS.patch(~p"/admin/articles")}>
   <.live_component
     module={CimbirodalomWeb.Admin.ArticleLive.FormComponent}
-    id={@article.id || :new}
+    id={:new}
     title={@page_title}
     action={@live_action}
     article={@article}

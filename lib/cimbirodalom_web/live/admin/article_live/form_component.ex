@@ -66,7 +66,7 @@ defmodule CimbirodalomWeb.Admin.ArticleLive.FormComponent do
   defp save_article(socket, :new, article_params) do
     case Articles.create_article(article_params) do
       {:ok, article} ->
-        notify_parent({:saved, article})
+        notify_parent({:created, article})
 
         {:noreply,
          socket

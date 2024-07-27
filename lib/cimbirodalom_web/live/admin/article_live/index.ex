@@ -14,12 +14,6 @@ defmodule CimbirodalomWeb.Admin.ArticleLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Article")
-    |> assign(:article, Articles.get_article!(id))
-  end
-
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Article")

@@ -90,7 +90,7 @@ defmodule CimbirodalomWeb.Router do
       live "/settings/confirm_email/:token", AdminSettingsLive, :confirm_email
       live "/articles", ArticleLive.Index, :index
       live "/articles/new", ArticleLive.Index, :new
-      live "/articles/:id/edit", ArticleLive.Index, :edit
+      live "/articles/:id/edit", ArticleLive.Edit, :edit
 
       live "/articles/:id", ArticleLive.Show, :show
       live "/articles/:id/show/edit", ArticleLive.Show, :edit
