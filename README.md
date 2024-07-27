@@ -31,3 +31,21 @@ Project contains an admin and website.
 
 * Both sites use `tailwind` and they share the same config.
 * [Flowbite](https://flowbite.com/docs/getting-started/phoenix/) is used for the admin drawer + article carousels (installation details linked).
+
+
+## Resources
+
+
+Resources can be generated:
+
+### Articles
+
+```
+mix phx.gen.live Articles Article articles title:text slug:text:unique subtitle:text created_by:references:admins --web Admin
+```
+
+### Authors
+
+```
+mix phx.gen.live Authors Author authors name:text slug:text:unique img_path:text description:text --web Admin
+```

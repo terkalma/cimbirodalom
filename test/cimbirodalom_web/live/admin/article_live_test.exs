@@ -6,7 +6,6 @@ defmodule CimbirodalomWeb.Admin.ArticleLiveTest do
   import Cimbirodalom.AccountsFixtures
 
   @create_attrs %{title: "some title", subtitle: "some subtitle"}
-  @update_attrs %{title: "some updated title", subtitle: "some updated subtitle"}
   @invalid_attrs %{title: nil, subtitle: nil}
 
   defp create_article(_) do
@@ -25,14 +24,6 @@ defmodule CimbirodalomWeb.Admin.ArticleLiveTest do
 
     test "redirects from index if admin is not logged in", %{conn: conn} do
       assert {:error, redirect} = live(conn, ~p"/admin/articles")
-
-      assert {:redirect, %{to: path, flash: flash}} = redirect
-      assert path == ~p"/admin/log_in"
-      assert %{"error" => "You must log in to access this page."} = flash
-    end
-
-    test "redirects from show if admin is not logged in", %{conn: conn, article: article} do
-      assert {:error, redirect} = live(conn, ~p"/admin/articles/#{article}")
 
       assert {:redirect, %{to: path, flash: flash}} = redirect
       assert path == ~p"/admin/log_in"
@@ -91,40 +82,6 @@ defmodule CimbirodalomWeb.Admin.ArticleLiveTest do
 
       assert index_live |> element("#articles-#{article.id} a", "Delete") |> render_click()
       refute has_element?(index_live, "#articles-#{article.id}")
-    end
-  end
-
-  describe "Show" do
-    setup [:create_article, :login_admin]
-
-    test "displays article", %{conn: conn, article: article} do
-      {:ok, _show_live, html} = live(conn, ~p"/admin/articles/#{article}")
-
-      assert html =~ "Show Article"
-      assert html =~ article.title
-    end
-
-    test "updates article within modal", %{conn: conn, article: article} do
-      {:ok, show_live, _html} = live(conn, ~p"/admin/articles/#{article}")
-
-      assert show_live |> element("a", "Edit") |> render_click() =~
-               "Edit Article"
-
-      assert_patch(show_live, ~p"/admin/articles/#{article}/show/edit")
-
-      assert show_live
-             |> form("#article-form", article: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
-
-      assert show_live
-             |> form("#article-form", article: @update_attrs)
-             |> render_submit()
-
-      assert_patch(show_live, ~p"/admin/articles/#{article}")
-
-      html = render(show_live)
-      assert html =~ "Article updated successfully"
-      assert html =~ "some updated title"
     end
   end
 end

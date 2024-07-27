@@ -3,6 +3,7 @@ defmodule CimbirodalomWeb.Router do
 
   import CimbirodalomWeb.AdminAuth
   alias Admin.ArticleLive
+  alias Admin.AuthorLive
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -92,8 +93,9 @@ defmodule CimbirodalomWeb.Router do
       live "/articles/new", ArticleLive.Index, :new
       live "/articles/:id/edit", ArticleLive.Edit, :edit
 
-      live "/articles/:id", ArticleLive.Show, :show
-      live "/articles/:id/show/edit", ArticleLive.Show, :edit
+      live "/authors", AuthorLive.Index, :index
+      live "/authors/new", AuthorLive.Index, :new
+      live "/authors/:id/edit", AuthorLive.Index, :edit
     end
   end
 

@@ -1,0 +1,40 @@
+<.header>
+  Listing Authors
+  <:actions>
+    <.link patch={~p"/admin/authors/new"}>
+      <.button>New Author</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="authors"
+  rows={@streams.authors}
+>
+  <:col :let={{_id, author}} label="Name"><%= author.name %></:col>
+  <:col :let={{_id, author}} label="Slug"><%= author.slug %></:col>
+  <:col :let={{_id, author}} label="Img path"><%= author.img_path %></:col>
+  <:col :let={{_id, author}} label="Description"><%= author.description %></:col>
+  <:action :let={{_id, author}}>
+    <.link patch={~p"/admin/authors/#{author}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, author}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: author.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="author-modal" show on_cancel={JS.patch(~p"/admin/authors")}>
+  <.live_component
+    module={CimbirodalomWeb.Admin.AuthorLive.FormComponent}
+    id={@author.id || :new}
+    title={@page_title}
+    action={@live_action}
+    author={@author}
+    patch={~p"/admin/authors"}
+  />
+</.modal>

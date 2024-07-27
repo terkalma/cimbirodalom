@@ -9,16 +9,12 @@
 
 <.table
   id="articles"
-  rows={@streams.articles}
-  row_click={fn {_id, article} -> JS.navigate(~p"/admin/articles/#{article}") end}
+  rows={@streams.articles}  
 >
   <:col :let={{_id, article}} label="Title"><%= article.title %></:col>
   <:col :let={{_id, article}} label="Slug"><%= article.slug %></:col>
   <:col :let={{_id, article}} label="Subtitle"><%= article.subtitle %></:col>
   <:action :let={{_id, article}}>
-    <div class="sr-only">
-      <.link navigate={~p"/admin/articles/#{article}"}>Show</.link>
-    </div>
     <.link navigate={~p"/admin/articles/#{article}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, article}}>
