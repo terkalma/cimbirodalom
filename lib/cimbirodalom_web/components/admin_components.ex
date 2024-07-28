@@ -38,6 +38,7 @@ defmodule CimbirodalomWeb.AdminComponents do
   """
   attr :id, :string, required: true
   attr :show, :boolean, default: false
+  attr :width, :string, default: "w-full max-w-3xl"
   attr :on_cancel, JS, default: %JS{}
   slot :inner_block, required: true
 
@@ -50,7 +51,11 @@ defmodule CimbirodalomWeb.AdminComponents do
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
       class="relative z-50 hidden"
     >
-      <div id={"#{@id}-bg"} class="bg-zinc-50/90 fixed inset-0 transition-opacity" aria-hidden="true" />
+      <div
+        id={"#{@id}-bg"}
+        class="bg-slate-700/90 fixed inset-0 transition-opacity"
+        aria-hidden="true"
+      />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -60,13 +65,16 @@ defmodule CimbirodalomWeb.AdminComponents do
         tabindex="0"
       >
         <div class="flex min-h-full items-center justify-center">
-          <div class="w-full max-w-3xl p-4 sm:p-6 lg:py-8">
+          <div class={[
+            "p-4 sm:p-6 lg:py-8",
+            @width
+          ]}>
             <.focus_wrap
               id={"#{@id}-container"}
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-white p-14 shadow-lg ring-1 transition"
+              class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-white dark:bg-slate-800 p-14 shadow-lg ring-1 transition"
             >
               <div class="absolute top-6 right-5">
                 <button
@@ -233,6 +241,7 @@ defmodule CimbirodalomWeb.AdminComponents do
       class={[
         "phx-submit-loading:opacity-75 rounded-lg bg-blue-100 py-2 px-3",
         "shadow-md hover:shadow-lg",
+        "border-[0.5px] border-blue-600",
         "text-sm font-semibold leading-6 text-blue-600 active:text-white/80",
         @class
       ]}
@@ -388,6 +397,27 @@ defmodule CimbirodalomWeb.AdminComponents do
         {@rest}
       />
       <.error :for={msg <- @errors}><%= msg %></.error>
+    </div>
+    """
+  end
+
+  attr :image, :any, required: true
+  attr :label, :string, required: true
+
+  def file_input(assigns) do
+    ~H"""
+    <div>
+      <.label for={@image.ref}><%= @label %></.label>
+      <.live_file_input
+        upload={@image}
+        class={[
+          "file:bg-blue-100 file:text-blue-600 rounded-lg",
+          "file:border-none border-slate-300 border-[1px]",
+          "cursor-pointer file:cursor-pointer",
+          "text-sm font-semibold leading-6",
+          "file:py-2 mt-2 w-full "
+        ]}
+      />
     </div>
     """
   end
@@ -676,5 +706,33 @@ defmodule CimbirodalomWeb.AdminComponents do
   """
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
+  end
+
+  attr :title, :string, required: true
+  attr :description, :string, required: true
+  attr :image_url, :string, required: true
+  attr :html_id, :string, required: true
+  slot :inner_block, required: true
+
+  def index_card(assigns) do
+    ~H"""
+    <div
+      id={@html_id}
+      class="bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700"
+    >
+      <img class="rounded-t-lg" src={@image_url} alt={@title} />
+      <div class="p-5 flex flex-col h-[250px]">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <%= @title %>
+        </h5>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 flex-grow overflow-hidden">
+          <%= @description %>
+        </p>
+        <div class="mt-auto">
+          <%= render_slot(@inner_block) %>
+        </div>
+      </div>
+    </div>
+    """
   end
 end

@@ -5,9 +5,9 @@ defmodule CimbirodalomWeb.Admin.AuthorLiveTest do
   import Cimbirodalom.AuthorsFixtures
   import Cimbirodalom.AccountsFixtures
 
-  @create_attrs %{name: "some name", description: "some description", slug: "some slug", img_path: "some img_path"}
-  @update_attrs %{name: "some updated name", description: "some updated description", slug: "some updated slug", img_path: "some updated img_path"}
-  @invalid_attrs %{name: nil, description: nil, slug: nil, img_path: nil}
+  @create_attrs %{name: "some name", description: "some description"}
+  @update_attrs %{name: "some updated name", description: "some updated description"}
+  @invalid_attrs %{name: nil, description: nil}
 
   defp create_author(_) do
     author = author_fixture()

@@ -7,34 +7,41 @@
   </:actions>
 </.header>
 
-<.table
-  id="authors"
-  rows={@streams.authors}
->
-  <:col :let={{_id, author}} label="Name"><%= author.name %></:col>
-  <:col :let={{_id, author}} label="Slug"><%= author.slug %></:col>
-  <:col :let={{_id, author}} label="Img path"><%= author.img_path %></:col>
-  <:col :let={{_id, author}} label="Description"><%= author.description %></:col>
-  <:action :let={{_id, author}}>
-    <.link patch={~p"/admin/authors/#{author}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, author}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: author.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
-  </:action>
-</.table>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-4" id={"authors"} phx-update={"stream"}>
+  <.index_card :for={{key, author} <- @streams.authors} title={author.name} description={author.description} 
+    image_url={CimbirodalomWeb.ImageUtils.image_url(author, "large")}
+    html_id={key}
+  >    
+    <div class="flex flex-row-reverse w-full gap-4 mt-4">
+      <.link 
+        class={[
+          "rounded-lg bg-blue-100 py-2 px-10 border-[0.5px] border-blue-600",
+          "shadow-md hover:shadow-lg",
+          "text-sm font-semibold leading-6 text-blue-600 hover:shadow-lg"
+        ]}
+        patch={~p"/admin/authors/#{author.id}/edit"}>Edit
+      </.link>
+      <.link
+        class={[
+          "rounded-lg bg-transparent border-[0.5px] border-rose-400 px-3 my-2",          
+          "text-sm font-semibold leading-6 text-rose-400"
+        ]}
+        phx-click={JS.push("delete", value: %{id: author.id}) |> hide("##{key}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    </div>
+  </.index_card>
+</div>
 
-<.modal :if={@live_action in [:new, :edit]} id="author-modal" show on_cancel={JS.patch(~p"/admin/authors")}>
+<.modal :if={@live_action in [:new, :edit]} id="author-modal" show on_cancel={JS.patch(~p"/admin/authors")} width="w-full max-w-4xl" >
   <.live_component
     module={CimbirodalomWeb.Admin.AuthorLive.FormComponent}
     id={@author.id || :new}
     title={@page_title}
     action={@live_action}
-    author={@author}
+    author={@author}    
     patch={~p"/admin/authors"}
   />
 </.modal>

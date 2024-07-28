@@ -17,7 +17,7 @@ defmodule Cimbirodalom.AuthorsFixtures do
       attrs
       |> Enum.into(%{
         description: "some description",
-        img_path: "some img_path",
+        img_data: %{},
         name: uniq_author_name(),
       })
       |> Cimbirodalom.Authors.create_author()

@@ -5,8 +5,9 @@ defmodule Cimbirodalom.Repo.Migrations.CreateAuthors do
     create table(:authors) do
       add :name, :text, null: false
       add :slug, :text, null: false
-      add :img_path, :text
+      add :img_data, :jsonb, default: "{}"
       add :description, :text
+      add :locked_for_asset_update_at, :utc_datetime
 
       timestamps(type: :utc_datetime)
     end

@@ -17,7 +17,8 @@ defmodule Cimbirodalom.Application do
       # Start a worker by calling: Cimbirodalom.Worker.start_link(arg)
       # {Cimbirodalom.Worker, arg},
       # Start to serve requests, typically the last entry
-      CimbirodalomWeb.Endpoint
+      CimbirodalomWeb.Endpoint,
+      {Task.Supervisor, name: Cimbirodalom.TaskSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
