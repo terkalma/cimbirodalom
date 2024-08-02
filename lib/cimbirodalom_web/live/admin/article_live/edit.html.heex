@@ -1,9 +1,18 @@
-<div class="container max-w-[760px] mt-8 mx-auto bg-white rounded-lg shadow-lg min-h-screen prose">
-
+<div class={[
+    "container max-w-[840px] mt-8 mx-auto",
+    "bg-white rounded-lg shadow-lg min-h-screen",
+    "prose prose-base prose-slate"
+]}>
     <.live_component
         module={CimbirodalomWeb.Admin.ArticleLive.TitleComponent}
-        id={:new}
+        id={@html_id > "-title"}        
+        article_id={@article_id}
         title={@title}
         subtitle={@subtitle}        
+    />
+    <.live_component
+        module={CimbirodalomWeb.Admin.ArticleLive.ContentComponent}
+        id={@html_id > "-content"}
+        article_id={@article_id}
     />
 </div>

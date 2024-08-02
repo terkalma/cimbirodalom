@@ -23,6 +23,7 @@ import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
 import "flowbite/dist/flowbite.phoenix.js";
 import Hooks from "./admin/hooks";
+import { initEditor } from "./admin/editor";
 
 let csrfToken = document
     .querySelector("meta[name='csrf-token']")
@@ -69,3 +70,11 @@ window.addEventListener("phx:toggle-dark-mode", () => {
         localStorage.setItem("phx:dark-mode", "dark");
     }
 });
+
+window.editors = window.editors || {};
+window.addEventListener("phx:editor:init", (event) => {
+    console.log(event);
+    if (!window.editors[event.detail.id]) {
+        window.editors[event.detail.id] = initEditor(event.detail.id);
+    }
+})

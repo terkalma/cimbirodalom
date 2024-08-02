@@ -14,6 +14,8 @@ defmodule CimbirodalomWeb.Admin.ArticleLive.Edit do
 
     socket
     |> assign(:page_title, "Edit Article")
+    |> assign(:html_id, "article-" > Integer.to_string(article.id))
+    |> assign(:article_id, article.id)
     |> assign(:title, article.title)
     |> assign(:subtitle, article.subtitle)
   end

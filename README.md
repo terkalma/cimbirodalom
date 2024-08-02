@@ -33,6 +33,11 @@ Project contains an admin and website.
 * [Flowbite](https://flowbite.com/docs/getting-started/phoenix/) is used for the admin drawer + article carousels (installation details linked).
 
 
+## Schema
+
+https://app.diagrams.net/#G1z1-ltu_BoqOcla47xdb1DQstcxwVhgnE#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D
+
+
 ## Resources
 
 
