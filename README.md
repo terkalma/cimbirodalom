@@ -49,8 +49,16 @@ Resources can be generated:
 mix phx.gen.live Articles Article articles title:text slug:text:unique subtitle:text created_by:references:admins --web Admin
 ```
 
+### Article Content
+
+```
+mix phx.gen.schema Articles.Content article_contennts article_id:references:articles
+```
+
+
 ### Authors
 
 ```
 mix phx.gen.live Authors Author authors name:text slug:text:unique img_path:text description:text --web Admin
 ```
+

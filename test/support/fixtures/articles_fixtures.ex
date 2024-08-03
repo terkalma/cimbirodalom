@@ -12,7 +12,7 @@ defmodule Cimbirodalom.ArticlesFixtures do
   @doc """
   Generate a article.
   """
-  def article_fixture(attrs \\ %{}) do
+  def article_fixture_with_content(attrs \\ %{}) do
     {:ok, article} =
       attrs
       |> Enum.into(%{
@@ -22,5 +22,10 @@ defmodule Cimbirodalom.ArticlesFixtures do
       |> Cimbirodalom.Articles.create_article()
 
     article
+  end
+
+  def article_fixture(attrs \\ %{}) do
+    article = article_fixture_with_content(attrs)
+    Cimbirodalom.Articles.get_article!(article.id)
   end
 end

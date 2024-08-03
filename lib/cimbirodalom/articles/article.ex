@@ -8,6 +8,7 @@ defmodule Cimbirodalom.Articles.Article do
     field :subtitle, :string
     field :created_by, :id
     field :status, Ecto.Enum, values: [:draft, :published, :archived], default: :draft
+    has_one :content, Cimbirodalom.Articles.Content, where: [content_id: nil]
 
     timestamps(type: :utc_datetime)
   end
@@ -20,6 +21,7 @@ defmodule Cimbirodalom.Articles.Article do
     |> validate_required([:title, :subtitle])
     |> build_slug()
     |> unique_constraint([:title, :status])
+    |> cast_assoc(:content, with: &Cimbirodalom.Articles.Content.changeset/2)
   end
 
   defp build_slug(changeset) do

@@ -94,7 +94,7 @@ defmodule CimbirodalomWeb.Admin.AuthorLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:thumb_img, CimbirodalomWeb.ImageUtils.image_url(author, "medium"))
+     |> assign(:thumb_img, Authors.image_url(author, "medium"))
      |> assign_new(:form, fn ->
        to_form(Authors.change_author(author))
      end)}

@@ -11,7 +11,7 @@ defmodule Cimbirodalom.ArticlesTest do
     @invalid_attrs %{title: nil, slug: nil, subtitle: nil}
 
     test "list_articles/0 returns all articles" do
-      article = article_fixture()
+      article = article_fixture_with_content()
       assert Articles.list_articles() == [article]
     end
 
@@ -58,6 +58,12 @@ defmodule Cimbirodalom.ArticlesTest do
     test "change_article/1 returns a article changeset" do
       article = article_fixture()
       assert %Ecto.Changeset{} = Articles.change_article(article)
+    end
+
+    test "get_content_id_by_article/1 returns content id" do
+      article = article_fixture_with_content()
+      content_id = Articles.get_content_id_by_article(article.id)
+      assert content_id == article.content.id
     end
   end
 end

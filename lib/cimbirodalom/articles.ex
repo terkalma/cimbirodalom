@@ -7,6 +7,7 @@ defmodule Cimbirodalom.Articles do
   alias Cimbirodalom.Repo
 
   alias Cimbirodalom.Articles.Article
+  alias Cimbirodalom.Articles.Content
 
   @doc """
   Returns the list of articles.
@@ -18,7 +19,7 @@ defmodule Cimbirodalom.Articles do
 
   """
   def list_articles do
-    Repo.all(Article)
+    Repo.all(Article) |> Repo.preload(:content)
   end
 
   @doc """
@@ -37,6 +38,19 @@ defmodule Cimbirodalom.Articles do
   """
   def get_article!(id), do: Repo.get!(Article, id)
 
+  def get_content_id_by_article(article_id) do
+    case Repo.one(
+           from c in Content,
+             where: c.article_id == ^article_id and is_nil(c.content_id),
+             select: c.id
+         ) do
+      nil -> raise "Content not found"
+      id -> id
+    end
+  end
+
+  def get_content!(id), do: Repo.get!(Content, id)
+
   @doc """
   Creates a article.
 
@@ -49,8 +63,14 @@ defmodule Cimbirodalom.Articles do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_article(attrs \\ %{}) do
+  def create_article(%{content: %{}} = attrs) do
     %Article{}
+    |> Article.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def create_article(%{} = attrs) do
+    %Article{content: %Content{}}
     |> Article.changeset(attrs)
     |> Repo.insert()
   end
@@ -71,6 +91,29 @@ defmodule Cimbirodalom.Articles do
     article
     |> Article.changeset(attrs)
     |> Repo.update()
+  end
+
+  def persist_document!(%{
+        version: version,
+        contents: contents,
+        inverted_changes: inverted_changes,
+        fetched: true,
+        content_id: content_id
+      }) do
+    from(c in Content,
+      where: c.id == ^content_id,
+      update: [
+        set: [
+          json_content:
+            ^%{
+              "version" => version,
+              "contents" => contents,
+              "inverted_changes" => inverted_changes
+            }
+        ]
+      ]
+    )
+    |> Repo.update_all([])
   end
 
   @doc """
@@ -100,5 +143,11 @@ defmodule Cimbirodalom.Articles do
   """
   def change_article(%Article{} = article, attrs \\ %{}) do
     Article.changeset(article, attrs)
+  end
+
+  def update_content(%Content{} = content, attrs) do
+    content
+    |> Content.changeset(attrs)
+    |> Repo.update()
   end
 end

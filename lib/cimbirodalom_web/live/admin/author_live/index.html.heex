@@ -9,7 +9,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-4" id={"authors"} phx-update={"stream"}>
   <.index_card :for={{key, author} <- @streams.authors} title={author.name} description={author.description} 
-    image_url={CimbirodalomWeb.ImageUtils.image_url(author, "large")}
+    image_url={Authors.image_url(author, "large")}
     html_id={key}
   >    
     <div class="flex flex-row-reverse w-full gap-4 mt-4">

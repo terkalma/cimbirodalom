@@ -213,6 +213,6 @@ defmodule Cimbirodalom.AuthorsTest do
 
     Authors.update_author(author, %{img_data: image_data})
     author = Authors.get_author!(author.id)
-    assert CimbirodalomWeb.ImageUtils.image_url(author, "original") == "https://d2r6hb3ca6lz0f.cloudfront.net/#{author.slug}/1/1234567890/original.jpeg"
+    assert Authors.image_url(author, "original") == "https://d2r6hb3ca6lz0f.cloudfront.net/#{author.slug}/1/1234567890/original.jpeg"
   end
 end

@@ -65,6 +65,7 @@ defmodule Cimbirodalom.MixProject do
       {:ex_aws, "~> 2.1"},
       {:ex_aws_s3, "~> 2.0"},
       {:hackney, "~> 1.9"},
+      {:delta, "~> 0.4.0"}
     ]
   end
 

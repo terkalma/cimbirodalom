@@ -5,14 +5,15 @@
 ]}>
     <.live_component
         module={CimbirodalomWeb.Admin.ArticleLive.TitleComponent}
-        id={@html_id > "-title"}        
+        id={@html_id <> "-title"}        
         article_id={@article_id}
         title={@title}
         subtitle={@subtitle}        
     />
     <.live_component
         module={CimbirodalomWeb.Admin.ArticleLive.ContentComponent}
-        id={@html_id > "-content"}
+        id={@html_id <> "-content"}
         article_id={@article_id}
+        content_id={@content_id}
     />
 </div>

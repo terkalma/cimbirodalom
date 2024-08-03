@@ -18,7 +18,8 @@ defmodule Cimbirodalom.Application do
       # {Cimbirodalom.Worker, arg},
       # Start to serve requests, typically the last entry
       CimbirodalomWeb.Endpoint,
-      {Task.Supervisor, name: Cimbirodalom.TaskSupervisor}
+      {Task.Supervisor, name: Cimbirodalom.TaskSupervisor},
+      {Cimbirodalom.Articles.Supervisor, name: Cimbirodalom.Articles.Supervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
